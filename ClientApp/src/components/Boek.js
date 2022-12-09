@@ -2,8 +2,8 @@ import React from 'react'
 
 export const Boek = () => {
     return (
-        <form action='/doeboeking' method='get'>
-            Kies een dag uit: <input type='radio' name='dag' value='maandag'></input>
+        <form action='/Reservering' method='post'>
+            Kies een dag uit: {['maandag', 'dinsdag'].map(dag => Dag(dag))}
             <br />
             Aantal mensen: <input type='number' name='aantal'></input>
             <br />
@@ -14,9 +14,10 @@ export const Boek = () => {
     );
 }
 
-const Dagen = () => {
-    return (
-        <div id='lijst'></div>
+const Dag = (dag) => {
+    return (<>
+        <label>{dag}</label><input type='radio' name={dag} value={dag}></input>
+        </>
     )
 }
 
