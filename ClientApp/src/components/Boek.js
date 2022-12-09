@@ -16,6 +16,7 @@ export const Boek = () => {
         }
         let res = await fetch('reservering/nieuwReservering?dag=' + dag + '&aantal=' + aantal + '&email=' + email)
         console.log( await res.json())
+        alert('Boeking gedaan')
     }
 
     const Dag = (dag) => {
@@ -40,24 +41,3 @@ export const Boek = () => {
         </form>
     );
 }
-
-
-
-
-/* 
-voor een of andere reden kan je niks binnen in de input geven
-
-<form action="/doeboeking" method="get">
-            Kies een dag uit: <div id="lijst">{
-                ['maandag', 'dinsdag'].map( dag => {
-                    return (<input type='radio' name='dag' value={dag}>{dag}</input>)
-                })
-            }</div>
-            <br />
-            Aantal mensen: <input type="text" name="aantal"></input>
-            <br />
-            Email: <input type="text" name="email"></input>
-            <br />
-            <input type="submit">Doe boeking</input>
-        </form >
-*/
