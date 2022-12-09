@@ -9,7 +9,7 @@ public class ReserveringController : ControllerBase
 {
 
     private readonly int AantalDagen = 14;
-    private List<Dag> Dagen;
+    private static List<Dag> Dagen;
     public ReserveringController()
     {
         Dagen = new List<Dag>();

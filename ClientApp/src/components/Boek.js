@@ -9,27 +9,18 @@ export const Boek = () => {
     const [email, setEmail] = useState('')
 
     async function submitHandler (e)  {
-        e.preventDefault()
-        console.log(dag, aantal, email)
-        let res = await fetch('reservering', {
-            method: 'POST',
-            body: JSON.stringify({
-                dag: dag,
-                aantal: aantal,
-                email: email
-            })
-        })
-        console.log(res.status === 200 ? 'succes' : alert('error'))
-    }
-    async function testHandler(e) {
-        e.preventDefault()
-        let res = await fetch('reservering')
+        e.preventDefault() // geen reload van de pagina
+        if (dag === 0 || aantal === 0 || email === '') {
+            alert('Vul alles in')
+            return
+        }
+        let res = await fetch('reservering/nieuwReservering?dag=' + dag + '&aantal=' + aantal + '&email=' + email)
         console.log( await res.json())
     }
 
     const Dag = (dag) => {
         return (<>
-            <input type='radio' name='dag' value={dag} onChange={e => setDag(e.target.value)} /><label>{dag}</label>
+            <input type='radio' name='dag' value={dag} onChange={e => setDag(e.target.value)} /><span>-{dag} </span>
         </>
         )
     }
@@ -45,7 +36,7 @@ export const Boek = () => {
                 setEmail(e.target.value)
             }} />
             <br />
-            <button onClick={e => testHandler(e)}>Doe Boeking</button>
+            <button type='submit'>Doe Boeking</button>
         </form>
     );
 }
