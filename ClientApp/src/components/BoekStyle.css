@@ -1,0 +1,16 @@
+.dagenContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.dagItem {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    margin: 5px;
+    text-align: center;
+    line-height: 100px;
+    font-size: 2em;
+    font-weight: bold;
+}
