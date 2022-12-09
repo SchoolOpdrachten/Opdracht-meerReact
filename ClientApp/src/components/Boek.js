@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './BoekStyle.css'
 
 // ik wilde gaaf het aantal dagen ophalen van de server maar daar had ik geen tijd meer voor
 const DAGEN = [...Array(14).keys()] // fetch('reservering/aantalDagen')
@@ -20,15 +21,17 @@ export const Boek = () => {
     }
 
     const Dag = (dag) => {
-        return (<>
+        return (<div className='dagItem'>
             <input type='radio' name='dag' value={dag} onChange={e => setDag(e.target.value)} /><span>-{dag} </span>
-        </>
+        </div>
         )
     }
 
     return (
         <form onSubmit={e => submitHandler(e)}>
-            Kies een dag uit: {DAGEN.map(dag => Dag(dag + 1))}
+            Kies een dag uit: 
+            <br />
+            <div className='dagenContainer'>{DAGEN.map(dag => Dag(dag + 1))}</div>
             <br />
             Aantal mensen: <input type='number' name='aantal' onChange={e => setAantal(e.target.value)} />
             <br />
