@@ -3,15 +3,21 @@ import React from 'react'
 export const Boek = () => {
     return (
         <form action='/doeboeking' method='get'>
-            Kies een dag uit: 
+            Kies een dag uit: <input type='radio' name='dag' value='maandag'></input>
             <br />
-            Aantal mensen: <input type='text' name='aantal'></input>
+            Aantal mensen: <input type='number' name='aantal'></input>
             <br />
             Email: <input type='email' name='email'></input>
             <br />
             <input type="submit" name='doe boeking'></input>
         </form>
     );
+}
+
+const Dagen = () => {
+    return (
+        <div id='lijst'></div>
+    )
 }
 
 /* 
