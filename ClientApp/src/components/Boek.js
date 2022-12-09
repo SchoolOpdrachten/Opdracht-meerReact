@@ -3,7 +3,7 @@ import React from 'react'
 export const Boek = () => {
     return (
         <form action='/Reservering' method='post'>
-            Kies een dag uit: {['maandag', 'dinsdag'].map(dag => Dag(dag))}
+            Kies een dag uit: {DAGEN.map(dag => Dag(dag +1))}
             <br />
             Aantal mensen: <input type='number' name='aantal'></input>
             <br />
@@ -14,9 +14,11 @@ export const Boek = () => {
     );
 }
 
+const DAGEN = [...Array(14).keys()]
+
 const Dag = (dag) => {
     return (<>
-        <label>{dag}</label><input type='radio' name={dag} value={dag}></input>
+        <input type='radio' name={dag} value={dag}></input><label>{dag}</label>
         </>
     )
 }
