@@ -7,22 +7,23 @@ export const Boek = () => {
     const [aantal, setAantal] = useState(0)
     const [email, setEmail] = useState('')
 
-    async function submitHandler ()  {
+    async function submitHandler (e)  {
+        e.preventDefault()
         console.log(dag, aantal, email)
         let res = await fetch('reservering', {
-            method: 'POST',
-            body: {
+            method: 'get',
+            body: JSON.stringify({
                 dag: dag,
                 aantal: aantal,
                 email: email
-            }
+            })
         })
         console.log(res.status === 200 ? 'succes' : alert('error'))
     }
     async function testHandler(e) {
         e.preventDefault()
-        let res = await fetch('Reservring')
-        alert(await res.json())
+        let res = await fetch('reservering')
+        console.log( await res.json())
     }
 
     const Dag = (dag) => {
@@ -33,7 +34,7 @@ export const Boek = () => {
     }
 
     return (
-        <form onSubmit={submitHandler}>
+        <form onSubmit={e => submitHandler(e)}>
             Kies een dag uit: {DAGEN.map(dag => Dag(dag + 1))}
             <br />
             Aantal mensen: <input type='number' name='aantal' onChange={e => setAantal(e.target.value)} />
