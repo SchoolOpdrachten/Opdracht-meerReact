@@ -1,27 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+const DAGEN = [...Array(14).keys()]
 
 export const Boek = () => {
+    const [dag, setDag] = useState(0)
+    const [aantal, setAantal] = useState(0)
+    const [email, setEmail] = useState('')
+
+    async function submitHandler ()  {
+        console.log(dag, aantal, email)
+        let res = await fetch('reservering', {
+            method: 'POST',
+            body: {
+                dag: dag,
+                aantal: aantal,
+                email: email
+            }
+        })
+        console.log(res.status === 200 ? 'succes' : alert('error'))
+    }
+    async function testHandler(e) {
+        e.preventDefault()
+        let res = await fetch('Reservring')
+        alert(await res.json())
+    }
+
+    const Dag = (dag) => {
+        return (<>
+            <input type='radio' name='dag' value={dag} onChange={e => setDag(e.target.value)} /><label>{dag}</label>
+        </>
+        )
+    }
+
     return (
-        <form action='/Reservering' method='post'>
-            Kies een dag uit: {DAGEN.map(dag => Dag(dag +1))}
+        <form onSubmit={submitHandler}>
+            Kies een dag uit: {DAGEN.map(dag => Dag(dag + 1))}
             <br />
-            Aantal mensen: <input type='number' name='aantal'></input>
+            Aantal mensen: <input type='number' name='aantal' onChange={e => setAantal(e.target.value)} />
             <br />
-            Email: <input type='email' name='email'></input>
+            Email: <input type='email' name='email' onChange={e => {
+                console.log(e.target.value);
+                setEmail(e.target.value)
+            }} />
             <br />
-            <input type="submit" name='doe boeking'></input>
+            <button onClick={e => testHandler(e)}>Doe Boeking</button>
         </form>
     );
 }
 
-const DAGEN = [...Array(14).keys()]
 
-const Dag = (dag) => {
-    return (<>
-        <input type='radio' name={dag} value={dag}></input><label>{dag}</label>
-        </>
-    )
-}
+
 
 /* 
 voor een of andere reden kan je niks binnen in de input geven

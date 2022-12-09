@@ -15,15 +15,20 @@ public class ReserveringController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Voorstelling>> Get()
+    public int Get()
     {
-        return await _context.Voorstellingen.ToListAsync();
+        // return await _context.Voorstellingen.ToListAsync();
+        return 69;
     }
 
     [HttpPost]
-    public async Task Post(Reservering reservering)
+
+    public async Task PostReserverin(int dag, int aantal, string email)
     {
-        _context.Reserveringen.Add(reservering);
-        await _context.SaveChangesAsync();
+        Reservering reservering = new Reservering { Aantal = aantal, Email = email };
+
+        Console.WriteLine(reservering.ToString());
+        // _context.Reserveringen.Add(reservering);
+        // await _context.SaveChangesAsync();
     }
 }
