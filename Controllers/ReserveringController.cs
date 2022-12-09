@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Opdracht_meerReact_1.Models;
 
 namespace Opdracht_meerReact_1.Controllers;
 
@@ -8,41 +7,43 @@ namespace Opdracht_meerReact_1.Controllers;
 [Route("[controller]")]
 public class ReserveringController : ControllerBase
 {
-    private readonly ReserveringContext _context;
-    public ReserveringController(ReserveringContext context)
+
+    private readonly int AantalDagen = 14;
+    private List<Dag> Dagen;
+    public ReserveringController()
     {
-        _context = context;
+        Dagen = new List<Dag>();
+        for (int i = 1; i <= AantalDagen; i++)
+        {
+            if (i == 1) {
+                Dagen.Add(new Dag(i, new Reservering {Email = "peter@mail", Aantal = 2}) );
+            }
+            else Dagen.Add(new Dag(i));
+        }
     }
 
     [HttpGet]
-    public IEnumerable<int> Get()
+    [Route("aantalDagen")]
+    public int GetAantalDagen()
     {
-        // return await _context.Voorstellingen.ToListAsync();
-        Console.WriteLine("Get");
-        return new int[] { 1, 2, 3, 4, 5 };
+        return AantalDagen;
+    }
+
+    // test url: https://localhost:44466/reservering/nieuwReservering?dag=2&aantal=9&email=peter@mail
+    [HttpGet]
+    [Route("nieuwReservering")]
+    public IEnumerable<int> NieuwReservering(int dag, int aantal, string email)
+    {
+        Console.WriteLine($"Nieuwe reservering toevoegen...\ndag: [{dag}, aantal: {aantal}, email: {email}]");
+        Dagen[dag - 1].Reserveringen.Add(new Reservering { Email = email, Aantal = aantal });
+        return Dagen.Select(d => d.OpenPlekken).ToArray();
     }
 
     [HttpGet]
-    public IEnumerable<int> GetReservering(int dag, int aantal, string email)
+    [Route("reservering")]
+    public IEnumerable<Dag> GetReserveringenPerDag()
     {
-        Console.WriteLine($"dag: {dag}, aantal: {aantal}, email: {email}");
-        return new int[] { 69, 420 };
+        return Dagen.ToArray();
     }
 
-    [HttpPost]
-    public async Task PostReserverin(ReserveringLayout layout)
-    {
-        Reservering reservering = new Reservering { Dag = layout.dag, Aantal = layout.aantal, Email = layout.email };
-
-        Console.WriteLine(reservering.ToString());
-        // _context.Reserveringen.Add(reservering);
-        // await _context.SaveChangesAsync();
-    }
-}
-
-public class ReserveringLayout
-{
-    public int dag { get; set; }
-    public int aantal { get; set; }
-    public string email { get; set; }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
-const DAGEN = [...Array(14).keys()]
+// ik wilde gaaf het aantal dagen ophalen van de server maar daar had ik geen tijd meer voor
+const DAGEN = [...Array(14).keys()] // fetch('reservering/aantalDagen')
 
 export const Boek = () => {
     const [dag, setDag] = useState(0)
@@ -11,7 +12,7 @@ export const Boek = () => {
         e.preventDefault()
         console.log(dag, aantal, email)
         let res = await fetch('reservering', {
-            method: 'get',
+            method: 'POST',
             body: JSON.stringify({
                 dag: dag,
                 aantal: aantal,
