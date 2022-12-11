@@ -1,28 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './BoekStyle.css'
 
 // ik wilde gaaf het aantal dagen ophalen van de server maar daar had ik geen tijd meer voor
 const DAGEN = [...Array(14).keys()] // fetch('reservering/aantalDagen')
 
 export const Boek = () => {
+    const [result, setResult] = useState('') // voor de resultaten van de boeking
+
     const [dag, setDag] = useState(0)
     const [aantal, setAantal] = useState(0)
     const [email, setEmail] = useState('')
+
+    useEffect(() => {
+        document.getElementById('result').innerHTML = result
+    }, [result])
 
     async function submitHandler (e)  {
         e.preventDefault() // geen reload van de pagina
 
         if (aantal > 10) {
-            alert('Er is niet meer plek op deze dag. Minder het aantal mensen')
+            setResult('Er is niet meer plek op deze dag. Minder het aantal mensen')
             return
         }
         if (dag === 0 || aantal === 0 || email === '') {
-            alert('Vul alles in')
+            setResult('Vul alles in')
             return
         }
         let res = await fetch('reservering/nieuwReservering?dag=' + dag + '&aantal=' + aantal + '&email=' + email)
         console.log( await res.json())
-        alert('Boeking gedaan')
+        setResult('Boeking is gelukt')
     }
 
     const Dag = (dag) => {
@@ -32,7 +38,7 @@ export const Boek = () => {
         )
     }
 
-    return (
+    return (<>
         <form onSubmit={e => submitHandler(e)}>
             Kies een dag uit: 
             <br />
@@ -47,5 +53,7 @@ export const Boek = () => {
             <br />
             <button type='submit'>Doe Boeking</button>
         </form>
+        <p id='result'></p>
+        </>
     );
 }
