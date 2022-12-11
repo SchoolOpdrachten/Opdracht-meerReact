@@ -11,6 +11,11 @@ export const Boek = () => {
 
     async function submitHandler (e)  {
         e.preventDefault() // geen reload van de pagina
+
+        if (aantal > 10) {
+            alert('Er is niet meer plek op deze dag. Minder het aantal mensen')
+            return
+        }
         if (dag === 0 || aantal === 0 || email === '') {
             alert('Vul alles in')
             return
@@ -22,7 +27,7 @@ export const Boek = () => {
 
     const Dag = (dag) => {
         return (<div className='dagItem'>
-            <input type='radio' name='dag' value={dag} onChange={e => setDag(e.target.value)} /><span>-{dag} </span>
+            <input type='radio' name='dag' value={dag} onChange={e => setDag(e.target.value)} /><span> {dag} </span>
         </div>
         )
     }
