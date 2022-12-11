@@ -27,7 +27,7 @@ export const Boek = () => {
 
     const Dag = (dag) => {
         return (<div className='dagItem'>
-            <input type='radio' name='dag' value={dag} onChange={e => setDag(e.target.value)} /><span>-{dag} </span>
+            <input type='radio' name='dag' value={dag} onChange={e => setDag(e.target.value)} /><span> {dag} </span>
         </div>
         )
     }
