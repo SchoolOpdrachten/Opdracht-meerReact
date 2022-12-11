@@ -5,7 +5,7 @@ export class Home extends Component {
 
   render() {
     return (
-      <a href='/boek'>klik hier om te boeken</a>
+      <a id='naarBoeken' href='/boek'>klik hier om te boeken</a>
     );
   }
 }
