@@ -40,7 +40,6 @@ public class ReserveringController : ControllerBase
     }
 
     [HttpGet]
-    [Route("reservering")]
     public IEnumerable<Dag> GetReserveringenPerDag()
     {
         return Dagen.ToArray();
